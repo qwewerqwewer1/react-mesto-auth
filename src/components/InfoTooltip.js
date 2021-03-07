@@ -4,7 +4,7 @@ import ValidReg from '../images/ValidReg.svg';
 import InvalidReg from '../images/InvalidReg.svg';
 import closeIco from '../images/Close_ico.svg';
 
-function InfoToolTip(props) {
+function InfoTooltip(props) {
   return (
     <section className={`popup popup_tooltip ${props.openPopup ? 'popup__opened' : ''}`}>
       <div className='popup__container'>
@@ -25,4 +25,4 @@ function InfoToolTip(props) {
 
 }
 
-export default InfoToolTip
+export default InfoTooltip

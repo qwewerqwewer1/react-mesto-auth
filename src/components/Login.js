@@ -21,26 +21,26 @@ function Login({ onLogin }) {
   }
   //ясно понятно Reset
   const resetForm = () => {
-    setData(initialData)
+    setData(initialData);
   }
   //
   const handleSubmit = (e) => {
-    e.prevendDeafault()
+    e.preventDefault()
     if (!data.email || !data.password) {
       return;
     }
     onLogin(data)
       .then(resetForm)
-      .catch(err => (err.message || 'Что-то пошло не так'))
   }
 
   return (
     <div className="auth">
       <h2 className="auth__title">Вход</h2>
-      <form onSubmit={handleSubmit} className="form " autoComplete="off">
-        <input type='email' name="email" value={data.email} onChange={handleChange} className="form__input form__input_theme_dark" placeholder="Email" />
-        <input type='password' name="password" value={data.password} onChange={handleChange} className="form__input form__input_theme_dark" placeholder="Пароль" />
+      <form onSubmit={handleSubmit} className="form" autoComplete="off">
+        <input type='email' id="email" name="email" value={data.email} onChange={handleChange} className="form__input form__input_theme_dark" placeholder="Email" />
+        <input type='password' id="password" name="password" value={data.password} onChange={handleChange} className="form__input form__input_theme_dark" placeholder="Пароль" />
         <button type="submit" className="form__button">Войти</button>
+        <p className="auth__alternate">Для входа необходимо <Link className="auth__link" to="/sign-up">Зарегистрироватся</Link></p>
       </form>
     </div>
   )

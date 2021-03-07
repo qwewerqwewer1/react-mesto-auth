@@ -1,14 +1,15 @@
 // IMPORTS
 import React from 'react';
-import { Route, Switch, Redirect, } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import '../index.css';
 
 // импортируем компоненты приложения
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
-import InfoToolTip from './InfoTooltip';
+import InfoTooltip from './InfoTooltip';
+import * as auth from '../utils/auth.js';
 
-import '../index.css';
 import api from '../utils/api';
 
 import Header from './Header';
@@ -35,10 +36,67 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = React.useState(false);
-  const [success, setSuccess] = React.useState(true);
+  const [email, setEmail] = React.useState('');
+  const history = useHistory('');
 
-  // const [loggedIn, setLoggedIn] = useState(false);
+  const authCheck = React.useCallback(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setEmail(res.data.email)
+            history.push('/cards');
+          }
+        })
+        .catch(() => history.push('/sign-in'));
+    }
+  }, [history])
+
+  React.useEffect(() => {
+    authCheck();
+  }, [])
+
+  const handleLogin = ({ email, password }) => {
+    return auth.login(email, password)
+      .then(res => {
+        if (res.token) {
+          setEmail(email);
+          setLoggedIn(true);
+          localStorage.setItem('jwt', res.token);
+          history.push('/cards');
+        };
+      })
+      .catch(res => {
+        console.log(res);
+      })
+  }
+
+  const handleRegister = ({ email, password }) => {
+    return auth.register(email, password)
+      .then(res => {
+        setSuccess(true);
+        setInfoTooltipPopupOpen(true);
+        history.push('/sign-in');
+        return res;
+      })
+      .catch(res => {
+        setInfoTooltipPopupOpen(true);
+        console.log(res);
+      })
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setEmail('');
+    setLoggedIn(false);
+    history.push('/sign-in');
+  }
+
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -147,20 +205,22 @@ function App() {
 
         <div className="body">
           <div className="page">
-            <Header />
+            <Header email={email} isLogged={loggedIn} onLogout={handleLogout} />
             <Switch>
 
-              <Route path='/sign-up'>
-                <Register />
+              <Route path="/sign-up">
+                <Register onRegister={handleRegister} />
               </Route>
 
-              <Route path='/sign-in'>
-                <Login />
+
+              <Route path="/sign-in">
+                <Login onLogin={handleLogin} />
               </Route>
+
 
               <ProtectedRoute
                 path="/cards"
-                // loggedIn={loggedIn}
+                loggedIn={loggedIn}
                 component={Main}
                 cards={cards}
                 onEditAvatar={handleEditAvatarClick}
@@ -171,12 +231,12 @@ function App() {
                 onCardLike={handleCardLike}>
               </ ProtectedRoute>
 
-              {/* <Route>
+
+              <Route>
                 {loggedIn ? <Redirect to="/cards" /> : <Redirect to="/sign-in" />}
-              </Route> */}
+              </Route>
 
             </Switch>
-
             <Footer />
           </div>
 
@@ -202,7 +262,7 @@ function App() {
           <ImagePopup
             card={selectedCard}
             onClose={closeAllPopups} />
-          <InfoToolTip openPopup={isInfoTooltipPopupOpen} closePopup={closeAllPopups} success={success} />
+          <InfoTooltip openPopup={isInfoTooltipPopupOpen} closePopup={closeAllPopups} success={success} />
         </div>
 
       </CurrentUserContext.Provider>

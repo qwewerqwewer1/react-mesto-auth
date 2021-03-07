@@ -1,18 +1,16 @@
 .header__logo {
-  margin-bottom: 41px;
+  display: block;
+  background-size: cover;
+  width: 146px;
+  height: 34px;
+  background-image: url("../../../images/logo__mesto.svg");
 }
 
-
-@media screen and (max-width: 907px) {
+@media screen and (max-width: 686px) {
   .header__logo {
-    margin-left: 27px;
-  }
-}
-@media screen and (max-width: 582px) {
-  .header__logo {
-    margin-left: 27px;
-    margin-bottom: 31px;
-    width: 103.74px;
-    height: 24.4px;
+    width: 103px;
+    height: 24px;
+    background-image: url("../../../images/logo__mesto.svg");
+    margin-left: 30px;
   }
 }
