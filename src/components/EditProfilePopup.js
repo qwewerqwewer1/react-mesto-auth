@@ -33,13 +33,13 @@ function EditProfilePopup(props) {
     <PopupWithForm title='Редактировать профиль' name='formProfile' buttonTitleSubmit='Cохранить' openPopup={props.openPopup} closePopup={props.closePopup} onSubmit={handleSubmit}>
       <input
         id="popup__span_profile-title"
-        value={name}
+        value={name || ''}
         onChange={handleNameChange}
         name="profileName"
         placeholder="Имя"
         type="text"
-        minlength="2"
-        maxlength="40"
+        minLength="2"
+        maxLength="40"
         className="popup__input popup__input_name_title"
         required
       />
@@ -49,13 +49,13 @@ function EditProfilePopup(props) {
       ></span>
       <input
         id="popup__span_profile-subtitle"
-        value={description}
+        value={description || ''}
         onChange={handleDescriptionChange}
         name="profileProfession"
         placeholder="О себе"
         type="text"
-        minlength="2"
-        maxlength="200"
+        minLength="2"
+        maxLength="200"
         className="popup__input popup__input_name_subtitle"
         required
       />

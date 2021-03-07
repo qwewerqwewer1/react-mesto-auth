@@ -28,11 +28,12 @@ function AddPlacePopup(props) {
         id="popup__span_add-title"
         name="addCardName"
         type="text"
-        minlength="2"
-        maxlength="30"
+        minLength="2"
+        maxLength="30"
         placeholder="Название"
         className="popup__input popup__input_name_cardtitle"
         onChange={handleNameChange}
+        value={name}
         required
       />
       <span
@@ -46,6 +47,7 @@ function AddPlacePopup(props) {
         placeholder="Ссылка на картинку"
         className="popup__input popup__input_url_cardtitle"
         onChange={handleLinkChange}
+        value={link}
         required
       />
       <span

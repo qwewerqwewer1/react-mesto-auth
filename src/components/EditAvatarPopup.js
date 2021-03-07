@@ -22,7 +22,7 @@ function EditAvatarPopup(props) {
         id="popup__span_photo-url"
         name="inputPhoto"
         type="url"
-        minlength="2"
+        minLength="2"
         placeholder="URL"
         className="popup__input popup__input_url_photo"
         required
