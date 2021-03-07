@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/react-mesto-auth/index.html/static/css/main.8b596708.chunk.css",
+    "main.js": "/react-mesto-auth/index.html/static/js/main.5e86f816.chunk.js",
+    "main.js.map": "/react-mesto-auth/index.html/static/js/main.5e86f816.chunk.js.map",
+    "runtime-main.js": "/react-mesto-auth/index.html/static/js/runtime-main.20018b35.js",
+    "runtime-main.js.map": "/react-mesto-auth/index.html/static/js/runtime-main.20018b35.js.map",
+    "static/js/2.8da3c4ee.chunk.js": "/react-mesto-auth/index.html/static/js/2.8da3c4ee.chunk.js",
+    "static/js/2.8da3c4ee.chunk.js.map": "/react-mesto-auth/index.html/static/js/2.8da3c4ee.chunk.js.map",
+    "static/js/3.b8c66cc8.chunk.js": "/react-mesto-auth/index.html/static/js/3.b8c66cc8.chunk.js",
+    "static/js/3.b8c66cc8.chunk.js.map": "/react-mesto-auth/index.html/static/js/3.b8c66cc8.chunk.js.map",
+    "index.html": "/react-mesto-auth/index.html/index.html",
+    "static/css/main.8b596708.chunk.css.map": "/react-mesto-auth/index.html/static/css/main.8b596708.chunk.css.map",
+    "static/js/2.8da3c4ee.chunk.js.LICENSE.txt": "/react-mesto-auth/index.html/static/js/2.8da3c4ee.chunk.js.LICENSE.txt",
+    "static/media/Close_ico.a004a2d5.svg": "/react-mesto-auth/index.html/static/media/Close_ico.a004a2d5.svg",
+    "static/media/index.css": "/react-mesto-auth/index.html/static/media/lukas_active.75438e94.svg",
+    "static/media/InvalidReg.df8eddf6.svg": "/react-mesto-auth/index.html/static/media/InvalidReg.df8eddf6.svg",
+    "static/media/ValidReg.1b6082f8.svg": "/react-mesto-auth/index.html/static/media/ValidReg.1b6082f8.svg",
+    "static/media/Vector.d86bb2ed.svg": "/react-mesto-auth/index.html/static/media/Vector.d86bb2ed.svg",
+    "static/media/burger.a46d5c1c.svg": "/react-mesto-auth/index.html/static/media/burger.a46d5c1c.svg",
+    "static/media/close_burger.3c2485ff.svg": "/react-mesto-auth/index.html/static/media/close_burger.3c2485ff.svg",
+    "static/media/pointer.8667ac4a.svg": "/react-mesto-auth/index.html/static/media/pointer.8667ac4a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.20018b35.js",
+    "static/js/2.8da3c4ee.chunk.js",
+    "static/css/main.8b596708.chunk.css",
+    "static/js/main.5e86f816.chunk.js"
+  ]
+}

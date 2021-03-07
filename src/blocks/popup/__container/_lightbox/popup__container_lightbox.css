@@ -1,9 +1,0 @@
-.popup__container_lightbox {
-  padding: 0;
-}
-
-@media screen and (max-width: 590px) {
-  .popup__container_lightbox {
-    width: initial;
-  }
-}
