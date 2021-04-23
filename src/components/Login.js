@@ -40,7 +40,7 @@ function Login({ onLogin }) {
         <input type='email' id="email" name="email" value={data.email} onChange={handleChange} className="form__input form__input_theme_dark" placeholder="Email" />
         <input type='password' id="password" name="password" value={data.password} onChange={handleChange} className="form__input form__input_theme_dark" placeholder="Пароль" />
         <button type="submit" className="form__button">Войти</button>
-        <p className="auth__alternate">Для входа необходимо <Link className="auth__link" to="/sign-up">Зарегистрироватся</Link></p>
+        <p className="auth__alternate">Для входа необходимо <Link className="auth__link" to="/signup">Зарегистрироватся</Link></p>
       </form>
     </div>
   )

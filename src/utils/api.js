@@ -1,8 +1,9 @@
+import Base_Url from './utils'
+
 class Api {
-  constructor({ address, token, groupId }) {
+  constructor({ address, headers }) {
     this._address = address;
-    this._token = token;
-    this._groupId = groupId;
+    this._headers = headers;
   }
 
   _checkResponse(res) {
@@ -16,7 +17,7 @@ class Api {
   _get(url) {
     return fetch(url, {
       headers: {
-        authorization: this._token
+        authorization: localStorage.getItem('token'),
       }
     })
       .then(this._checkResponse)
@@ -27,7 +28,7 @@ class Api {
     return fetch(url, {
       method: 'PATCH',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body
@@ -40,7 +41,7 @@ class Api {
     return fetch(url, {
       method: 'POST',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body
@@ -53,7 +54,7 @@ class Api {
     return fetch(url, {
       method: 'PUT',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -64,7 +65,7 @@ class Api {
     return fetch(url, {
       method: 'DELETE',
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -74,18 +75,18 @@ class Api {
 
 
   getCards() {
-    const cardsUrl = `${this._address}${this._groupId}/cards`
+    const cardsUrl = `${this._address}/cards`
     return this._get(cardsUrl);
   }
 
 
   getUserInfo() {
-    const userUrl = `${this._address}${this._groupId}/users/me`
+    const userUrl = `${this._address}/users/me`
     return this._get(userUrl);
   }
 
   setProfile(name, about) {
-    const userUrl = `${this._address}${this._groupId}/users/me`
+    const userUrl = `${this._address}/users/me`
     const body = JSON.stringify({
       name: name,
       about: about,
@@ -94,7 +95,7 @@ class Api {
   }
 
   setAvatar(avatar) {
-    const userUrl = `${this._address}${this._groupId}/users/me/avatar`
+    const userUrl = `${this._address}/users/me/avatar`
     const body = JSON.stringify({
       avatar: avatar
     })
@@ -102,7 +103,7 @@ class Api {
   }
 
   postCard(name, link) {
-    const userUrl = `${this._address}${this._groupId}/cards`
+    const userUrl = `${this._address}/cards`
     const body = JSON.stringify({
       name: name,
       link: link
@@ -111,7 +112,7 @@ class Api {
   }
 
   showLike(cardId) {
-    const userUrl = `${this._address}${this._groupId}/cards/${cardId}`
+    const userUrl = `${this._address}/cards/${cardId}`
     return this._get(userUrl)
       .then((res) => {
         console.log(res)
@@ -119,25 +120,27 @@ class Api {
   }
 
   setLike(cardId) {
-    const userUrl = `${this._address}${this._groupId}/cards/likes/${cardId}`
+    const userUrl = `${this._address}/cards/likes/${cardId}`
     return this._put(userUrl)
   }
 
   delLike(cardId) {
-    const userUrl = `${this._address}${this._groupId}/cards/likes/${cardId}`
+    const userUrl = `${this._address}/cards/likes/${cardId}`
     return this._delete(userUrl)
   }
 
   delCard(cardId) {
-    const userUrl = `${this._address}${this._groupId}/cards/${cardId}`
+    const userUrl = `${this._address}/cards/${cardId}`
     return this._delete(userUrl)
   }
 }
 
 const api = new Api({
-  address: 'https://mesto.nomoreparties.co/v1/',
-  token: 'd4b37e18-f7c9-4662-8ad1-fdc803833149',
-  groupId: 'cohort-19',
+  address: `${Base_Url}`,
+  headers: {
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
+  },
 });
 
 export default api;

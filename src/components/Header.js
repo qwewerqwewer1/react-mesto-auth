@@ -29,11 +29,11 @@ function Header({ email, isLogged, onLogout }) {
       <nav className={isLogged ? headerNav : ''}>
         <ul className={menu}>
           <Switch>
-            <Route path="/sign-up">
-              <li className="menu__item"><Link className="menu__link" to="sign-in">Войти</Link></li>
+            <Route path="/signup">
+              <li className="menu__item"><Link className="menu__link" to="signin">Войти</Link></li>
             </Route>
-            <Route path="/sign-in">
-              <li className="menu__item"><Link className="menu__link" to="sign-up">Регистрация</Link></li>
+            <Route path="/signin">
+              <li className="menu__item"><Link className="menu__link" to="signup">Регистрация</Link></li>
             </Route>
             {isLogged
               ? <><li className={menuItem}>{email}</li><li className={menuItem}><span className="menu__link" onClick={handleLogoutClick}>Выйти</span></li></>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Register({ onRegister }) {
   //начальное стостояние емейла и пасса
@@ -43,7 +43,7 @@ function Register({ onRegister }) {
         <input type='password' id="password" name="password" className='form__input form__input_theme_dark' value={data.password} onChange={handleChange} placeholder="Пароль"></input>
         <button type='submit' className='form__button'>Зарегистрироваться</button>
       </form>
-      <p className="auth__alternate">Уже регистрировались? <Link className="auth__link" to="/sign-in">Войти</Link></p>
+      <p className="auth__alternate">Уже регистрировались? <Link className="auth__link" to="/signin">Войти</Link></p>
     </div>
   )
 

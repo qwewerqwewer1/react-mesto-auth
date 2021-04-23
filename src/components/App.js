@@ -6,8 +6,8 @@ import '../index.css';
 // импортируем компоненты приложения
 import Login from './Login';
 import Register from './Register';
-import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
+import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth.js';
 
 import api from '../utils/api';
@@ -42,23 +42,14 @@ function App() {
   const [email, setEmail] = React.useState('');
   const history = useHistory('');
 
-  const authCheck = React.useCallback(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth.checkToken(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            setEmail(res.data.email)
-            history.push('/cards');
-          }
-        })
-        .catch(() => history.push('/sign-in'));
-    }
-  }, [history])
-
   React.useEffect(() => {
-    authCheck();
+    const jwt = localStorage.getItem('token');
+    if (jwt) {
+      setLoggedIn(true);
+      history.push('/users/me');
+    }
+    history.push('/signin');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleLogin = ({ email, password }) => {
@@ -81,7 +72,7 @@ function App() {
       .then(res => {
         setSuccess(true);
         setInfoTooltipPopupOpen(true);
-        history.push('/sign-in');
+        history.push('/signin');
         return res;
       })
       .catch(res => {
@@ -94,7 +85,7 @@ function App() {
     localStorage.removeItem('jwt');
     setEmail('');
     setLoggedIn(false);
-    history.push('/sign-in');
+    history.push('/signin');
   }
 
 
@@ -106,8 +97,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-
-  }, []);
+  }, [loggedIn]);
 
   React.useEffect(() => {
     api.getCards()
@@ -158,13 +148,6 @@ function App() {
     setSelectedCard(card);
   }
 
-  function closeAllPopups() {
-    setEditAvatarPopupOpen(false);
-    setEditProfilePopupOpen(false);
-    setEditAddPlacePopupOpen(false);
-    setSelectedCard(null);
-    setInfoTooltipPopupOpen(false);
-  }
 
   function handleUpdateUser(user) {
     api.setProfile(user.name, user.about)
@@ -199,8 +182,17 @@ function App() {
       });
   }
 
+  function closeAllPopups() {
+    setEditAvatarPopupOpen(false);
+    setEditProfilePopupOpen(false);
+    setEditAddPlacePopupOpen(false);
+    setSelectedCard(null);
+    setInfoTooltipPopupOpen(false);
+  }
+
   return (
     <>
+
       <CurrentUserContext.Provider value={currentUser}>
 
         <div className="body">
@@ -208,15 +200,13 @@ function App() {
             <Header email={email} isLogged={loggedIn} onLogout={handleLogout} />
             <Switch>
 
-              <Route path="/sign-up">
+              <Route path="/signup">
                 <Register onRegister={handleRegister} />
               </Route>
 
-
-              <Route path="/sign-in">
+              <Route path="/signin">
                 <Login onLogin={handleLogin} />
               </Route>
-
 
               <ProtectedRoute
                 path="/cards"
@@ -231,9 +221,8 @@ function App() {
                 onCardLike={handleCardLike}>
               </ ProtectedRoute>
 
-
               <Route>
-                {loggedIn ? <Redirect to="/cards" /> : <Redirect to="/sign-in" />}
+                {loggedIn ? <Redirect to="/cards" /> : <Redirect to="/signin" />}
               </Route>
 
             </Switch>

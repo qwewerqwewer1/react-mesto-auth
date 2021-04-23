@@ -1,8 +1,8 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+import Base_Url from './utils';
 
 export const register = (email, password) => {
   //С помощью fetch она создаёт POST-запрос и регестрирует пользователя
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${Base_Url}`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -29,37 +29,13 @@ export const register = (email, password) => {
 
 export const login = (email, password) => {
   //С помощью fetch она создаёт POST-запрос и регестрирует пользователя
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${Base_Url}`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email, password })
-  })
-    .then((response) => {
-      try {
-        if (response.status === 200) {
-          return response.json();
-        }
-      } catch (e) {
-        return (e)
-      }
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => console.log(err));
-};
-
-export const checkToken = (jwt) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${jwt}`,
-    }
   })
     .then((response) => {
       try {
