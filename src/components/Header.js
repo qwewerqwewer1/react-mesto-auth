@@ -35,9 +35,7 @@ function Header({ email, isLogged, onLogout }) {
             <Route path="/signin">
               <li className="menu__item"><Link className="menu__link" to="signup">Регистрация</Link></li>
             </Route>
-            {isLogged
-              ? <><li className={menuItem}>{email}</li><li className={menuItem}><span className="menu__link" onClick={handleLogoutClick}>Выйти</span></li></>
-              : ''}
+            {isLogged ? <><li className={menuItem}>{email}</li><li className={menuItem}><span className="menu__link" onClick={handleLogoutClick}>Выйти</span></li></> : ''}
           </Switch>
         </ul>
       </nav>

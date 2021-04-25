@@ -2,7 +2,7 @@ import Base_Url from './utils';
 
 export const register = (email, password) => {
   //С помощью fetch она создаёт POST-запрос и регестрирует пользователя
-  return fetch(`${Base_Url}`, {
+  return fetch(`${Base_Url}/signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -20,7 +20,7 @@ export const register = (email, password) => {
         return (e)
       }
     })
-    //Этот обработчик then вернёт ещё один res с данными пользователя (которые он ввёл в форму регистрации), адресом запроса и уникальным подписанным JWT-токеном.
+    //Этот обработчик then вернёт ещё один res с данными пользователя (которые он ввёл в форму регистрации), адресом запроса и уникальным подписанным токеном.
     .then((res) => {
       return res;
     })
@@ -29,7 +29,7 @@ export const register = (email, password) => {
 
 export const login = (email, password) => {
   //С помощью fetch она создаёт POST-запрос и регестрирует пользователя
-  return fetch(`${Base_Url}`, {
+  return fetch(`${Base_Url}/signin`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

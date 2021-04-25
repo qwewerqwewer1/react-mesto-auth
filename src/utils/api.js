@@ -1,9 +1,8 @@
 import Base_Url from './utils'
 
 class Api {
-  constructor({ address, headers }) {
+  constructor({ address }) {
     this._address = address;
-    this._headers = headers;
   }
 
   _checkResponse(res) {
@@ -17,7 +16,8 @@ class Api {
   _get(url) {
     return fetch(url, {
       headers: {
-        authorization: localStorage.getItem('token'),
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
       }
     })
       .then(this._checkResponse)
@@ -28,7 +28,7 @@ class Api {
     return fetch(url, {
       method: 'PATCH',
       headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body
@@ -41,7 +41,7 @@ class Api {
     return fetch(url, {
       method: 'POST',
       headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body
@@ -54,7 +54,7 @@ class Api {
     return fetch(url, {
       method: 'PUT',
       headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -120,12 +120,12 @@ class Api {
   }
 
   setLike(cardId) {
-    const userUrl = `${this._address}/cards/likes/${cardId}`
+    const userUrl = `${this._address}/cards/${cardId}/likes`
     return this._put(userUrl)
   }
 
   delLike(cardId) {
-    const userUrl = `${this._address}/cards/likes/${cardId}`
+    const userUrl = `${this._address}/cards/${cardId}/likes`
     return this._delete(userUrl)
   }
 
@@ -137,10 +137,6 @@ class Api {
 
 const api = new Api({
   address: `${Base_Url}`,
-  headers: {
-    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-    'Content-Type': 'application/json',
-  },
 });
 
 export default api;
